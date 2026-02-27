@@ -1,3 +1,35 @@
+/*•	Why do we need async/await when using fetch()?
+The fetch method returns a Promise object and not the data 
+immediately because there is a delay between network requests.
+Using an async/await allows us to make these async functions as if
+they were synchronous, which simplifies the code and it reduces the
+need for complex nested callback structures. It makes sure that the
+code waits for the Promise to be completed before assigning the resolved
+value to a variable.
+
+*What does OpenTDB response_code mean in your implementation? Explain 0 and 5.
+The response_code is a status indicator returned by the OpenTDB API to
+tell the application wether the request was successful or if there was an
+error along the way. A code of 0 means successful, which means we got the
+trivia results. 5 tells it that the rate limit has been exceed, meaning the user
+is making requests too much too quickly and must wait.
+
+*What exactly is stored under STORAGE_KEY and why is JSON used?
+The STORAGE_KEY is where the application stores a JavaScript object
+containing the player's bestScore, bestTotal, and the number of quiz attempts.
+JSON is used because the Web Storage API can only store data as strings, and it
+helps it stringify the complex object for storage and they parse it back into a
+usable object.
+
+*Describe what happens from clicking Start Quiz until the first question is displayed
+(mention the functions involved).Clicking the Start Quiz runs the runRoundFlow, which then calls the validateStartForm
+to make sure that the inputs are collect and startFromForm to update the player state.
+It then starts the quiz with beginRound, it switches the UI by showOnly, and then it
+fetches the data using getToken and fetchQuestions. Once we get, process and decode the
+data, it calls the renderQuestion func to dynamically create the DOM elements and show
+the first question.
+*/
+
 (function () {
   "use strict";
 
