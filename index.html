@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lab 6 — Trivia Challenge (Starter, Ch 9–10)</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!--
+    ======================================================
+    CMPT 315 — Lab 6 Starter 
+    ======================================================
+
+    WHAT THIS APP DOES (big picture):
+    - A player enters Name + Email (validated).
+    - The app fetches multiple-choice trivia questions from Open Trivia DB (no API key).
+    - The player answers all questions in ONE round.
+    - The app shows a final score AND an Answer Review on the Result screen.
+    - The app saves a BEST SCORE in localStorage (so it survives refresh).
+
+
+    IMPORTANT:
+    - Keep element IDs the same (btnStart, screenQuiz, apiErrorBox, etc.).
+      The JavaScript uses document.getElementById() to locate elements.
+	  
+	- Use const by default for values that do not get reassigned 
+	(e.g., DOM element references, configuration objects, fixed arrays). 
+	Use let only for variables that need to change during execution 
+	(e.g., loop counters, accumulating totals, values updated inside functions).
+  -->
+</head>
+
+<body>
+<main>
+  <!-- ============================
+       HEADER / BRAND AREA (Task F)
+       ============================ -->
+  <div class="topbar brand">
+    <h1>QuizMaster</h1>
+    <span class="pill">Ch 9–10: full implementation</span>
+  </div>
+
+  <!-- ============================
+       SCREEN 1: START SCREEN
+       ============================ -->
+  <section class="card" id="screenStart">
+    <h2>Start</h2>
+
+    <div class="notice">
+      <p><b>Goal:</b> Complete one trivia round and see your score.</p>
+      <p><b>Storage:</b> Your best score is saved in <b>localStorage</b> (this browser only).</p>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="name">Name</label>
+        <input id="name" placeholder="Your name" />
+        <div class="err" id="errName"></div>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" placeholder="you@example.com" />
+        <div class="err" id="errEmail"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="category">Category (optional)</label>
+        <select id="category">
+          <option value="">Any Category</option>
+          <option value="18">Computers</option>
+          <option value="17">Science & Nature</option>
+          <option value="19">Mathematics</option>
+          <option value="9">General Knowledge</option>
+        </select>
+      </div>
+      <div>
+        <!-- Task D: Difficulty selection -->
+        <label for="mode">Difficulty</label>
+        <select id="mode">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="topbar" style="margin-top:12px;">
+      <button class="primary" id="btnStart">Start Quiz</button>
+      <button class="secondary" id="btnReset">Reset Best Score</button>
+    </div>
+
+    <div style="margin-top:12px;" class="notice" id="progressBox">
+      Best score: not loaded yet…
+    </div>
+  </section>
+
+  <!-- ============================
+       SCREEN 2: QUIZ SCREEN
+       ============================ -->
+  <section class="card hidden" id="screenQuiz">
+    <div class="topbar">
+      <h2 id="quizTitle">Trivia Round</h2>
+      <div>
+        <span class="pill">Score: <b id="score">0</b></span>
+        <span class="pill">Q: <b id="qNum">1</b>/<span id="qTotal">10</span></span>
+      </div>
+    </div>
+
+    <div class="notice hidden" id="loadingBox">Loading questions…</div>
+    <div class="notice hidden" id="apiErrorBox"></div>
+
+    <div class="notice" id="questionText">Question will appear here…</div>
+    <div class="choices" id="choices"></div>
+
+    <div class="topbar" style="margin-top:12px;">
+      <button class="secondary" id="btnQuit">Quit</button>
+    </div>
+  </section>
+
+  <!-- ============================
+       SCREEN 3: RESULT SCREEN
+       ============================ -->
+  <section class="card hidden" id="screenResult">
+    <h2 id="resultTitle">Result</h2>
+    <div class="notice" id="resultText"></div>
+
+    <!-- Task E: Answer Review (displayed at end) -->
+    <div class="notice" id="reviewBox" style="white-space: pre-wrap; margin-top: 10px;">
+      Answer review will appear here…
+    </div>
+
+    <div class="topbar" style="margin-top:12px;">
+      <button class="primary" id="btnPlayAgain">Play Again</button>
+      <button class="secondary" id="btnHome">Home</button>
+    </div>
+  </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
